@@ -2,26 +2,32 @@
 
 class Modal {
     constructor() {
+      this.modalBackground = null;
       this.modalContainer = null;
       this.modalContent = null;
       this.styleSheet = null;
     }
 
     mount() {
-      if (!this.modalContainer) {
+      if (!this.modalBackground) {
         this.createModal();
         this.loadStyles();
       }
+      document.body.appendChild(this.modalBackground);
       document.body.appendChild(this.modalContainer);
     }
 
     unmount() {
-      if (this.modalContainer) {
+      if (this.modalBackground && this.modalContainer) {
+        document.body.removeChild(this.modalBackground);
         document.body.removeChild(this.modalContainer);
       }
     }
 
     createModal() {
+      this.modalBackground = document.createElement('div');
+      this.modalBackground.className = 'modal-background';
+
       this.modalContainer = document.createElement('div');
       this.modalContainer.className = 'modal-container';
 
@@ -53,6 +59,6 @@ class Modal {
   });
 
   // Unmount the modal
-  document.getElementById('closeModalBtn').addEventListener('click', () => {
-    modal.unmount();
-  });
+//   document.getElementById('closeModalBtn').addEventListener('click', () => {
+//     modal.unmount();
+//   });
